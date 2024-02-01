@@ -20,12 +20,9 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    //@NotBlank(message = "Deve-se inserir o nome!")
     private String nome;
-    
-    //@NotBlank(message = "A categoria é obrigatória")
     private String categoria;
-    private Boolean status;
+    private String status;
 
     @CreationTimestamp
     private LocalDateTime created_at;

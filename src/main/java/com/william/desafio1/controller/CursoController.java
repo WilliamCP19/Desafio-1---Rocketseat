@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/")
 public class CursoController {
     
     @Autowired CursoService cursoService;
 
-    @PostMapping("/")
+    @PostMapping("cursos")
     public ResponseEntity<Object> criar (@RequestBody Curso curso) {
         try {
             var result = cursoService.adicionarCurso(curso);
