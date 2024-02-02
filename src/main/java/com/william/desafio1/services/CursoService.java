@@ -1,8 +1,8 @@
 package com.william.desafio1.services;
 
 import java.util.List;
-import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +25,7 @@ public class CursoService {
         });
         cursoRepository.save(curso);
 
-        var cursoDTO = CursoDTO.builder()
-            .nome(curso.getNome())
-            .categoria(curso.getCategoria())
-            .status(curso.getStatus())
-            .id(curso.getId())
-            .build();
-        return cursoDTO;
+        return buildarDTO(curso);
     }
 
     public List<CursoDTO> listarCursos () {
@@ -39,11 +33,33 @@ public class CursoService {
         return lista.stream().map(x -> new CursoDTO(x)).toList();
     }
 
-    public void deletarCurso (UUID id) {
+    public CursoDTO atualizarCurso (Long id, Curso curso) {
+        var aux = cursoRepository.findById(id)
+        .orElseThrow(() -> {
+            throw new CursoNotFoundException();
+        });
+        aux.setNome(curso.getNome());
+        aux.setCategoria(curso.getCategoria());
+        aux.setStatus(curso.getStatus());
+        cursoRepository.save(aux);
+
+        return buildarDTO(aux);
+    }
+
+    public void deletarCurso (Long id) {
         var curso = cursoRepository.findById(id)
         .orElseThrow(() -> {
             throw new CursoNotFoundException();
         });
         cursoRepository.deleteById(id);
+    }
+
+    public CursoDTO buildarDTO (Curso aux) {
+        return CursoDTO.builder()
+            .nome(aux.getNome())
+            .categoria(aux.getCategoria())
+            .status(aux.getStatus())
+            .id(aux.getId())
+            .build();
     }
 }

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.william.desafio1.dto.CursoDTO;
 import com.william.desafio1.entities.Curso;
 import com.william.desafio1.exception.CursoNotFoundException;
 import com.william.desafio1.services.CursoService;
@@ -47,8 +48,18 @@ public class CursoController {
         }
     }
 
+    @PutMapping("cursos/{id}")
+    public ResponseEntity<Object> atualizar (@RequestBody Curso curso, @PathVariable Long id) {
+        try {
+            var result = cursoService.atualizarCurso(id, curso);
+            return ResponseEntity.ok().body(result);
+        } catch (CursoNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("cursos/{id}")
-    public ResponseEntity<Object> deletar (@PathVariable UUID id) {
+    public ResponseEntity<Object> deletar (@PathVariable Long id) {
         try {
             cursoService.deletarCurso(id);
             return ResponseEntity.ok().body("Curso excluído com sucesso");
