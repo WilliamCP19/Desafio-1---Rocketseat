@@ -1,21 +1,16 @@
 package com.william.desafio1.controller;
 
-import java.util.UUID;
-
 import org.springframework.web.bind.annotation.RestController;
 
-import com.william.desafio1.dto.CursoDTO;
 import com.william.desafio1.entities.Curso;
 import com.william.desafio1.exception.CursoNotFoundException;
 import com.william.desafio1.services.CursoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -52,6 +47,16 @@ public class CursoController {
     public ResponseEntity<Object> atualizar (@RequestBody Curso curso, @PathVariable Long id) {
         try {
             var result = cursoService.atualizarCurso(id, curso);
+            return ResponseEntity.ok().body(result);
+        } catch (CursoNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PatchMapping("cursos/{id}/active")
+    public ResponseEntity<Object> atualizarStatus (@PathVariable long id) {
+        try {
+            var result = cursoService.atulizarStatus(id);
             return ResponseEntity.ok().body(result);
         } catch (CursoNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
