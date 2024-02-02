@@ -21,7 +21,8 @@ public class Curso {
 
     private String nome;
     private String categoria;
-    private String status;
+
+    private Boolean status;
 
     @CreationTimestamp
     private LocalDateTime created_at;

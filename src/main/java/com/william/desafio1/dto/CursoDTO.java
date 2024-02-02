@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class CursoDTO {
     private String nome;
     private String categoria;
-    private String status;
+    private Boolean status;
     private Long id;
 
     public CursoDTO (Curso curso) {
