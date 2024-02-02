@@ -41,7 +41,7 @@ public class CursoService {
         aux.setCategoria(curso.getCategoria());
         aux.setStatus(curso.getStatus());
         cursoRepository.save(aux);
-        
+
         return new CursoDTO(aux);
     }
 
