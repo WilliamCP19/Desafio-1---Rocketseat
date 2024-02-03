@@ -5,15 +5,9 @@ import com.william.desafio1.entities.Status;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class CursoDTO {
     private String nome;
     private String categoria;
@@ -26,6 +20,6 @@ public class CursoDTO {
         this.nome = curso.getNome();
         this.categoria = curso.getCategoria();
         this.id = curso.getId();
-        this.status = curso.getStatus() ? Status.ATIVO : Status.DESATIVADO;
+        this.status = curso.getAtivo() ? Status.ATIVO : Status.DESATIVADO;
     }
 }

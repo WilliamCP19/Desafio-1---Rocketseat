@@ -57,6 +57,7 @@ public class CursoController {
     public ResponseEntity<Object> atualizarStatus (@PathVariable long id) {
         try {
             var result = cursoService.atulizarStatus(id);
+            System.out.println(result.getStatus());
             return ResponseEntity.ok().body(result);
         } catch (CursoNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

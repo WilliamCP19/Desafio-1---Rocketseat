@@ -29,6 +29,11 @@ public class CursoService {
 
     public List<CursoDTO> listarCursos () {
         var lista = cursoRepository.findAll();
+
+        lista.forEach((curso) -> {
+            System.out.println("Cursos:");
+            System.out.println(curso);
+        });
         return lista.stream().map(x -> new CursoDTO(x)).toList();
     }
 
@@ -39,7 +44,7 @@ public class CursoService {
         });
         aux.setNome(curso.getNome());
         aux.setCategoria(curso.getCategoria());
-        aux.setStatus(curso.getStatus());
+        aux.setAtivo(curso.getAtivo());
         cursoRepository.save(aux);
 
         return new CursoDTO(aux);
@@ -50,7 +55,7 @@ public class CursoService {
         .orElseThrow (() -> {
             throw new CursoFoundException();
         });
-        aux.setStatus(!aux.getStatus());
+        aux.setAtivo(!aux.getAtivo());
         cursoRepository.save(aux);
         return new CursoDTO(aux);
     }
